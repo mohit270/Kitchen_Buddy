@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+The Flutter Recipe App with Edamam API Integration is a cross-platform mobile application designed to simplify meal planning, cooking, and recipe discovery. Built with Flutter, this app harnesses the Edamam API to provide users with a vast repository of recipes, nutritional data, and culinary inspiration. Whether you're an experienced chef or just getting started in the kitchen, our app is your ultimate cooking companion.
 
 A few resources to get you started if this is your first Flutter project:
 
