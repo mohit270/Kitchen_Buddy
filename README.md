@@ -9,13 +9,21 @@ The Flutter Recipe App with Edamam API Integration is a cross-platform mobile ap
 ## Key Features:
 
 Recipe Search: Easily find recipes by keywords, ingredients, cuisine, or dietary preferences.
+<br>
 Recipe Details: Access comprehensive recipe information, including ingredients, preparation steps, and estimated cooking time.
+<br>
 Nutritional Information: Get in-depth nutritional facts for each recipe, aiding in informed dietary choices.
+<br>
 Favorites: Save your favorite recipes for quick access and create your personalized cookbook.
+<br>
 Meal Planning: Plan your weekly meals using the built-in meal planner and generate convenient shopping lists.
+v
 User Profiles: Create and personalize your user profile, including dietary restrictions and allergies.
+<br>
 Community Interaction: Share your own recipes, rate recipes, and leave reviews to assist other users.
+v
 Responsive Design: Enjoy a seamless experience on both Android and iOS devices, thanks to Flutter's cross-platform capabilities.
+<br>
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
