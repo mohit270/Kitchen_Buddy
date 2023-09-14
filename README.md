@@ -12,16 +12,6 @@ Recipe Search: Easily find recipes by keywords, ingredients, cuisine, or dietary
 <br>
 Recipe Details: Access comprehensive recipe information, including ingredients, preparation steps, and estimated cooking time.
 <br>
-Nutritional Information: Get in-depth nutritional facts for each recipe, aiding in informed dietary choices.
-<br>
-Favorites: Save your favorite recipes for quick access and create your personalized cookbook.
-<br>
-Meal Planning: Plan your weekly meals using the built-in meal planner and generate convenient shopping lists.
-v
-User Profiles: Create and personalize your user profile, including dietary restrictions and allergies.
-<br>
-Community Interaction: Share your own recipes, rate recipes, and leave reviews to assist other users.
-v
 Responsive Design: Enjoy a seamless experience on both Android and iOS devices, thanks to Flutter's cross-platform capabilities.
 <br>
 
