@@ -7,6 +7,8 @@ import 'package:recipe_app/recipeView.dart';
 import 'package:recipe_app/search.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -14,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isloading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
-  TextEditingController searchController = new TextEditingController();
+  TextEditingController searchController = TextEditingController();
   List reciptCatList = [
     {
       "imgUrl":
@@ -54,7 +56,7 @@ class _HomeState extends State<Home> {
     Map data = jsonDecode(response.body);
     setState(() {
       data["hits"].forEach((element) {
-        RecipeModel recipeModel = new RecipeModel();
+        RecipeModel recipeModel = RecipeModel();
         recipeModel = RecipeModel.fromMap(element["recipe"]);
         recipeList.add(recipeModel);
         setState(() {
@@ -64,15 +66,14 @@ class _HomeState extends State<Home> {
       });
     });
 
-    recipeList.forEach((Recipe) {
+    for (var Recipe in recipeList) {
       print(Recipe.applabel);
       print(Recipe.appcalories);
-    });
+    }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getRecipes('Healthy');
   }
@@ -94,26 +95,6 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-
-          /*
-      * InWell - Tap,DoubleTaP,etc.
-      * Gesture Detector
-      *
-      * Hover - Color
-      * Tap - Splash
-      *
-      * Getsure -
-      * Swipe,'
-      *
-      * Card - elevation background color,radius child
-      *
-      * ClipRRect - Frame - Photo Rectangle
-      *
-      * ClipPath - Custom CLips
-      *
-      * positioned  - Stack - topleft , top,down,left - 2.2
-      *
-      * */
           SingleChildScrollView(
             child: Column(
               children: [
@@ -122,50 +103,54 @@ class _HomeState extends State<Home> {
                   child: Container(
                     //Search Wala Container
 
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    margin: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24)),
                     child: Row(
                       children: [
+                        Expanded(
+                          child: TextField(
+                            controller: searchController,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Search Recipe Here ",
+                            ),
+                            onSubmitted: (value) {
+                              performSearch();
+                            },
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () {
                             if ((searchController.text).replaceAll(" ", "") ==
                                 "") {
                               print("Blank search");
                             } else {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        Search(searchController.text),
-                                  ));
+                                      builder: ((context) =>
+                                          Search(searchController.text))));
                             }
                           },
                           child: Container(
+                            margin: const EdgeInsets.fromLTRB(3, 0, 7, 0),
                             child: Icon(
                               Icons.search,
-                              color: Colors.blueAccent,
+                              color: Colors.blueAccent.shade400,
                             ),
-                            margin: EdgeInsets.fromLTRB(3, 0, 7, 0),
                           ),
                         ),
-                        Expanded(
-                          child: TextField(
-                            controller: searchController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search Recipe Here :)"),
-                          ),
-                        )
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -182,100 +167,96 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Container(
-                    child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: recipeList.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        RecipeView(recipeList[index].appurl),
-                                  ));
-                            },
-                            child: Card(
-                              margin: EdgeInsets.all(20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              elevation: 0.0,
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        recipeList[index].appimgUrl,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        height: 200,
-                                      )),
-                                  Positioned(
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 5, horizontal: 10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.black26),
-                                          child: Text(
-                                            recipeList[index].applabel,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20),
-                                          ))),
-                                  Positioned(
-                                    right: 0,
-                                    height: 40,
-                                    width: 80,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(10),
-                                                bottomLeft:
-                                                    Radius.circular(10))),
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.local_fire_department,
-                                                size: 15,
-                                              ),
-                                              Text(recipeList[index]
-                                                  .appcalories
-                                                  .toString()
-                                                  .substring(0, 6)),
-                                            ],
+                ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: recipeList.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    RecipeView(recipeList[index].appurl),
+                              ));
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          elevation: 0.0,
+                          child: Stack(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.network(
+                                    recipeList[index].appimgUrl,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: 200,
+                                  )),
+                              Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      decoration: const BoxDecoration(
+                                          color: Colors.black26),
+                                      child: Text(
+                                        recipeList[index].applabel,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ))),
+                              Positioned(
+                                right: 0,
+                                height: 40,
+                                width: 80,
+                                child: Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10))),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.local_fire_department,
+                                            size: 15,
                                           ),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        })),
+                                          Text(recipeList[index]
+                                              .appcalories
+                                              .toString()
+                                              .substring(0, 6)),
+                                        ],
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
 
-                Container(
+                SizedBox(
                   height: 100,
                   child: isloading
-                      ? Center(
-                          child: const CircularProgressIndicator.adaptive())
+                      ? const Center(
+                          child: CircularProgressIndicator.adaptive())
                       : ListView.builder(
                           itemCount: reciptCatList.length,
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return Container(
-                                child: InkWell(
+                            return InkWell(
                               onTap: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => Search(
@@ -283,7 +264,7 @@ class _HomeState extends State<Home> {
                                             ))));
                               },
                               child: Card(
-                                  margin: EdgeInsets.all(20),
+                                  margin: const EdgeInsets.all(20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18),
                                   ),
@@ -305,9 +286,11 @@ class _HomeState extends State<Home> {
                                           bottom: 0,
                                           top: 0,
                                           child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 10),
-                                              decoration: BoxDecoration(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              decoration: const BoxDecoration(
                                                   color: Colors.black26),
                                               child: Column(
                                                 mainAxisAlignment:
@@ -316,7 +299,7 @@ class _HomeState extends State<Home> {
                                                   Text(
                                                     reciptCatList[index]
                                                         ["heading"],
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 28),
                                                   ),
@@ -324,7 +307,7 @@ class _HomeState extends State<Home> {
                                               ))),
                                     ],
                                   )),
-                            ));
+                            );
                           }),
                 )
               ],
@@ -333,5 +316,20 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  void performSearch() {
+    // Implement your search logic here
+    String query = searchController.text;
+    if ((searchController.text).replaceAll(" ", "") == "") {
+      print("Blank search");
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => Search(searchController.text))));
+    }
+
+    // You can update the UI or navigate to a new screen with search results.
   }
 }

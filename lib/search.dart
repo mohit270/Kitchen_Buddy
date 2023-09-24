@@ -13,8 +13,6 @@ class Search extends StatefulWidget {
   State<Search> createState() => _SearchState();
 }
 
-class requried {}
-
 class _SearchState extends State<Search> {
   bool isloading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
