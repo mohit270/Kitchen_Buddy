@@ -7,7 +7,7 @@ import 'package:recipe_app/recipeView.dart';
 
 class Search extends StatefulWidget {
   String query;
-  Search(this.query);
+  Search(this.query, {super.key});
 
   @override
   State<Search> createState() => _SearchState();
@@ -16,7 +16,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   bool isloading = true;
   List<RecipeModel> recipeList = <RecipeModel>[];
-  TextEditingController searchController = new TextEditingController();
+  TextEditingController searchController = TextEditingController();
   List reciptCatList = [
     {
       "imgUrl": "https://images.unsplash.com/photo-1593560704563-f176a2eb61db",
@@ -42,7 +42,7 @@ class _SearchState extends State<Search> {
     Map data = jsonDecode(response.body);
     setState(() {
       data["hits"].forEach((element) {
-        RecipeModel recipeModel = new RecipeModel();
+        RecipeModel recipeModel = RecipeModel();
         recipeModel = RecipeModel.fromMap(element["recipe"]);
         recipeList.add(recipeModel);
         setState(() {
@@ -52,10 +52,10 @@ class _SearchState extends State<Search> {
       });
     });
 
-    recipeList.forEach((Recipe) {
+    for (var Recipe in recipeList) {
       print(Recipe.applabel);
       print(Recipe.appcalories);
-    });
+    }
   }
 
   @override
@@ -110,8 +110,8 @@ class _SearchState extends State<Search> {
                   child: Container(
                     //Search Wala Container
 
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    margin: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24)),
@@ -131,17 +131,17 @@ class _SearchState extends State<Search> {
                             }
                           },
                           child: Container(
-                            child: Icon(
+                            margin: const EdgeInsets.fromLTRB(3, 0, 7, 0),
+                            child: const Icon(
                               Icons.search,
                               color: Colors.blueAccent,
                             ),
-                            margin: EdgeInsets.fromLTRB(3, 0, 7, 0),
                           ),
                         ),
                         Expanded(
                           child: TextField(
                             controller: searchController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Search Recipe Here :)"),
                           ),
@@ -153,10 +153,10 @@ class _SearchState extends State<Search> {
 
                 Container(
                     child: isloading
-                        ? Center(
-                            child: const CircularProgressIndicator.adaptive())
+                        ? const Center(
+                            child: CircularProgressIndicator.adaptive())
                         : ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: recipeList.length,
                             itemBuilder: (context, index) {
@@ -170,7 +170,7 @@ class _SearchState extends State<Search> {
                                       ));
                                 },
                                 child: Card(
-                                  margin: EdgeInsets.all(20),
+                                  margin: const EdgeInsets.all(20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -191,13 +191,13 @@ class _SearchState extends State<Search> {
                                           right: 0,
                                           bottom: 0,
                                           child: Container(
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   vertical: 5, horizontal: 10),
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                   color: Colors.black26),
                                               child: Text(
                                                 recipeList[index].applabel,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20),
                                               ))),
@@ -206,7 +206,7 @@ class _SearchState extends State<Search> {
                                         height: 40,
                                         width: 80,
                                         child: Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(
                                                     topRight:
@@ -218,7 +218,7 @@ class _SearchState extends State<Search> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.local_fire_department,
                                                     size: 15,
                                                   ),
